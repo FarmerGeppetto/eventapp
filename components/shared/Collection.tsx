@@ -32,7 +32,8 @@ const Collection = ({
                             const hasOrderLink =
                                 collectionType === "Events_Organized";
                             const hidePrice = collectionType === "My_Tickets";
-
+                            
+                            if (!event) return null;            
                             return (
                                 <li
                                     key={event._id}

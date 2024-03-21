@@ -17,8 +17,9 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
 
     const orders = await getOrdersByUser({ userId, page: ordersPage });
 
-    const orderedEvents =
-        orders?.data.map((order: IOrder) => order.event) || [];
+    const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
+    const nonEmptyOrderedEvents = orderedEvents.filter((event: Event) => event);
+    
     const organizedEvents = await getEventsByUser({ userId, page: eventsPage });
 
     return (
@@ -37,7 +38,7 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
 
             <section className="wrapper my-8">
                 <Collection
-                    data={orderedEvents}
+                    data={nonEmptyOrderedEvents}
                     emptyTitle="No event tickets purchased yet"
                     emptyStateSubtext="No worries - plenty of exciting events to explore!"
                     collectionType="My_Tickets"
