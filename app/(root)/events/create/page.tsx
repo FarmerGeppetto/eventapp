@@ -1,10 +1,13 @@
 import EventForm from "@/components/shared/EventForm";
-import { auth } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs";
 
-const CreateEvent = () => {
-    const { sessionClaims } = auth();
+const CreateEvent = async () => {
+    // const { userId } = auth();
+    const user = await currentUser()
+    const userId = user?.publicMetadata.userId || null
 
-    const userId = sessionClaims?.userId as string;
+    if (!userId) return null; 
+    if (typeof userId !== "string") return null; 
 
     return (
         <>
